@@ -3,8 +3,12 @@
 // the WPILib BSD license file in the root directory of this project.
 package frc.robot
 
+import edu.wpi.first.wpilibj.XboxController
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
 import edu.wpi.first.wpilibj2.command.Command
+import frc.robot.commands.DriveStraight
+import frc.robot.subsystems.DrivetrainSubsystem
+
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the [Robot]
@@ -13,6 +17,10 @@ import edu.wpi.first.wpilibj2.command.Command
  */
 class RobotContainer {
   // Hardware and subsystem initialization
+
+  val drivetrainSubsystem = DrivetrainSubsystem()
+  val primaryController = XboxController(0)
+
   init {
     configureButtonBindings()
     configureAutoOptions()
@@ -24,7 +32,7 @@ class RobotContainer {
    * Controller ([GenericHID], [XboxController]) mapping.
    */
   private fun configureButtonBindings() {
-
+    drivetrainSubsystem.defaultCommand = DriveStraight(drivetrainSubsystem, primaryController)
   }
 
   private fun configureAutoOptions() {
